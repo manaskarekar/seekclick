@@ -12,3 +12,5 @@ class Search(models.Model):
 
 	def taken_recently(self):
 		return self.photo_date >= timezone.now() - datetime.timedelta(days=7)
+		
+	

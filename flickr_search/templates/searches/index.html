@@ -1,0 +1,15 @@
+{% if latest_search_list %}
+	<ul>
+{% for search in latest_search_list %}
+	<li><a href="results/{{ search.keywords }}/">{{ search.keywords }}</a></li>
+{% endfor %}
+</ul>
+{% else %}
+	<p>No searches are available.</p>
+{% endif %}
+
+
+<form action="results/" method="post">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" value="Search" />
+</form>
