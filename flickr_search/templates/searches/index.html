@@ -1,4 +1,5 @@
 {% if latest_search_list %}
+<h3> Popular Searches </h3>
 	<ul>
 {% for search in latest_search_list %}
 	<li><a href="results/{{ search.keywords }}/">{{ search.keywords }}</a></li>
@@ -9,7 +10,22 @@
 {% endif %}
 
 
-<form action="results/" method="post">{% csrf_token %}
+<form action="." method="post">{% csrf_token %}
 {{ form.as_p }}
 <input type="submit" value="Search" />
 </form>
+
+{% if search_query %}
+	<h3><i>Search results for: </i></h3>
+	{% for keyword in search_query %}
+ 		<i>{{ keyword }}&nbsp;</i>
+ 	{% endfor %}
+{% else %}
+	<p> Search for your favorite stuff! </p>
+{% endif %}
+
+<br><br>
+
+{% if flickr_results %}
+{{ flickr_results }}
+{% endif %}

@@ -6,5 +6,5 @@ urlpatterns = patterns('',
 		url(r'^search/$', views.index, name='index'),
 		#url(r'^search/(?P<keywords>\w+)/$', views.search, name='search'),
 		url(r'^query/(?P<keywords>\w+)/$', views.query, name='query'),
-		url(r'^results/$', views.results, name='results'),
+		#url(r'^results/$', views.results, name='results'),
 		)
