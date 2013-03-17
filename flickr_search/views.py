@@ -19,6 +19,7 @@ def index(request):
 	search_query = None
 	flickr_results = None
 	flickr_photo_urls = None
+	keywords = None
 	try:
 		latest_search_list = Search.objects.order_by('photo_date')
 	except Search.DoesNotExist:
@@ -29,9 +30,9 @@ def index(request):
 		if form.is_valid():
 			search_query_unstripped = form.cleaned_data['search'] #.split()
 			if search_query_unstripped:
-				search_query = [x.strip().split() for x in search_query_unstripped.split(',')]
-				search_query = list(itertools.chain.from_iterable(search_query))
-				search_query = ",".join(search_query)
+				keywords = [x.strip().split() for x in search_query_unstripped.split(',')]
+				keywords = list(itertools.chain.from_iterable(keywords))
+				search_query = ",".join(keywords)
 				flickr_results =  flickr.photos_search(tags=search_query, per_page='10')
 				if flickr_results:
 					flickr_result = flickr_results.find('photos')
@@ -45,7 +46,7 @@ def index(request):
 	return render(request, 'searches/index.html', 
 		{'latest_search_list' : latest_search_list, 
 		'form' : form, 
-		'search_query' : search_query.split(','),
+		'keywords' : keywords,
 		'flickr_photo_urls' : flickr_photo_urls,
 		})
 	

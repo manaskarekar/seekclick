@@ -15,9 +15,9 @@
 <input type="submit" value="Search" />
 </form>
 
-{% if search_query %}
+{% if keywords %}
 	<h3><i>Search results for: </i></h3>
-	{% for keyword in search_query %}
+	{% for keyword in keywords %}
  		<i>{{ keyword }}&nbsp;</i>
  	{% endfor %}
 {% else %}
@@ -26,8 +26,10 @@
 
 <br><br>
 
+<table>
 {% if flickr_photo_urls %}
 	{%  for photo_url in flickr_photo_urls %}
-		<i>Show photo at: {{ photo_url }}</i><br>
+	<tr><td><img src="{{ photo_url }}" alt="Im Age"></img><br></td></tr>
 	{% endfor %}
 {% endif %}
+</table>
