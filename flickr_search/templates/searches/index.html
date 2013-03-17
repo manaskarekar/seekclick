@@ -26,6 +26,8 @@
 
 <br><br>
 
-{% if flickr_results %}
-{{ flickr_results }}
+{% if flickr_photo_urls %}
+	{%  for photo_url in flickr_photo_urls %}
+		<i>Show photo at: {{ photo_url }}</i><br>
+	{% endfor %}
 {% endif %}
