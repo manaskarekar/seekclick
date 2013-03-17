@@ -33,7 +33,7 @@ def index(request):
 				keywords = [x.strip().split() for x in search_query_unstripped.split(',')]
 				keywords = list(itertools.chain.from_iterable(keywords))
 				search_query = ",".join(keywords)
-				flickr_results =  flickr.photos_search(tags=search_query, per_page='10')
+				flickr_results =  flickr.photos_search(tags=search_query, per_page='10', sort='interestingness-desc')
 				if flickr_results:
 					flickr_result = flickr_results.find('photos')
 					flickr_photo_urls = build_flickr_photo_urls(flickr_result)
