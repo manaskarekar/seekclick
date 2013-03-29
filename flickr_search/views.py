@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.template import Context, loader
 from django.shortcuts import render
 
-from flickr_search.models import Search 
+from flickr_search.models import Search, Photo
 from flickr_search.forms import SearchForm
 
 from utils import build_flickr_photo_urls
@@ -33,14 +33,16 @@ def index(request):
 				keywords = [x.strip().split() for x in search_query_unstripped.split(',')]
 				keywords = list(itertools.chain.from_iterable(keywords))
 				search_query = ",".join(keywords)
-				flickr_results =  flickr.photos_search(tags=search_query, per_page='10', sort='interestingness-desc')
+				flickr_results =  flickr.photos_search(tags=search_query, per_page='10', sort='relevance')
 				if flickr_results:
 					flickr_result = flickr_results.find('photos')
 					flickr_photo_urls = build_flickr_photo_urls(flickr_result)
 					#print flickr_result, flickr_photo_urls
 					#for photo in flickr_result:
 					#	print photo.tag, photo.attrib, "<"
-			#TODO: Add entry to database
+				#TODO: Add entry to database
+				#search_results_db = Result(location="location", keywords=keywords, photo_date=None, results=flickr_photo_urls)
+
 	else:
 		form = SearchForm()
 	return render(request, 'searches/index.html', 
